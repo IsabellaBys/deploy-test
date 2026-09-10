@@ -1,0 +1,25 @@
+name: Publish Website
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+
+jobs:
+  web-deploy:
+    name: 🚀 Deploy Website Every Commit
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get Latest Code
+      uses: actions/checkout@v6
+    
+    - name: 📂 Sync Files
+      uses: SamKirkland/web-deploy@v1
+      with:
+        target-server: ssh.c38ttyojm.service.one
+        ssh-port: 22 
+        remote-user: c38ttyojm_ssh
+        private-ssh-key: ${{ secrets.SSH_KEY }}
+        destination-path: /customers/3/3/a/c38ttyojm/webroots/f7e777f4/wp-content/themes
